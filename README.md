@@ -4,13 +4,13 @@ Bloom is a private darkroom for your photographs, by Lotus: develop them, keep
 the whole record of each one, and carry them between your own devices, with no
 cloud between. Every image holds a moment.
 
-This repository publishes signed Bloom Windows releases. The application
+This repository publishes signed Bloom releases for Windows and Android. The application
 source, signing keys, private symbols and build system are not stored here;
 GitHub's generated source archives contain only this small distribution shell.
 
 ## Install
 
-Download `Bloom-Windows-vX.Y.Z-Setup.exe` from the latest release and run it.
+**Windows:** download `Bloom-Windows-vX.Y.Z-Setup.exe` from the latest release and run it.
 It installs for your user only under `%LOCALAPPDATA%\Programs\Lotus\Bloom`.
 Your photographs and settings live outside that folder and survive every
 upgrade and uninstall.
@@ -20,6 +20,11 @@ During setup Bloom offers to let itself sync on your **private** network
 That one step asks Windows for administrator approval; leave it unticked and
 Bloom still works on this computer, it just can't receive from your other
 devices until you allow it.
+
+**Android** (64-bit phones): download `Bloom-Android-vX.Y.Z.apk` on your phone
+and open it. Android will ask you to allow installs from that app (your browser
+or files app) once. If you ever installed a test build of Bloom, uninstall it
+first: Android only updates an app signed with the same key.
 
 Windows SmartScreen may say the publisher is unknown: Bloom is not signed with
 a paid Windows publisher certificate. Choose **More info → Run anyway** if you
@@ -34,6 +39,7 @@ is `bloom-release-ed25519-public.pem` in this repository.
 ```
 openssl pkeyutl -verify -pubin -inkey bloom-release-ed25519-public.pem -rawin -in SHA256SUMS.txt -sigfile SHA256SUMS.txt.sig
 certutil -hashfile Bloom-Windows-vX.Y.Z-Setup.exe SHA256
+apksigner verify --print-certs Bloom-Android-vX.Y.Z.apk
 ```
 
 The hash must match the line in `SHA256SUMS.txt`. See
